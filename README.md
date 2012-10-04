@@ -21,7 +21,13 @@ Esse serviço é usado para recuperar a formas de pagamento configuradas na sua 
 ```python
 from ipagare.gateway import IPagareGateway
 gateway = IPagareGateway(ID_ESTABELECIMENTO, CODIGO_SEGURANCA, sandbox=True)
-gateway.payment_options(total=10000)
+print gateway.payment_options(total=10000)
+[{
+    'formas': [u'\xe0 vista', u'2x sem juros'],
+    'instituicao': 'American Express',
+    'convenio': 'WebPOS Webservice',
+    'nome': 'American Express'
+}]
 ```
 
 ## [Processar pagamentos pela Integração Webservice](https://ipagare.zendesk.com/entries/20338847-servico-processar-pagamentos-pela-integracao-webservice)
