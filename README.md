@@ -16,6 +16,8 @@ Atualmente os serviços abaixo são suportados. Sinta-se a vontade para implemen
 
 ## [Consultar opções de pagamento](https://ipagare.zendesk.com/entries/20339157-servico-consultar-opcoes-de-pagamento)
 
+Esse serviço é usado para recuperar a formas de pagamento configuradas na sua conta do iPagare
+
 ```python
 from ipagare.gateway import IPagareGateway
 gateway = IPagareGateway(ID_ESTABELECIMENTO, CODIGO_SEGURANCA, sandbox=True)
@@ -24,9 +26,10 @@ gateway.payment_options(total=10000)
 
 ## [Processar pagamentos pela Integração Webservice](https://ipagare.zendesk.com/entries/20338847-servico-processar-pagamentos-pela-integracao-webservice)
 
+```python
 from ipagare.gateway import IPagareGateway
 gateway = IPagareGateway(ID_ESTABELECIMENTO, CODIGO_SEGURANCA, sandbox=True)
-ipagare_request = gateway.process_payment(total=12000,
+request = gateway.process_payment(total=12000,
     payment_option='28',
     payment_form_code='A02',
     card_number='4444333322221111',
@@ -34,6 +37,7 @@ ipagare_request = gateway.process_payment(total=12000,
     card_expires_year='2015',
     card_security_code='123',
     request_code='1234')
+assert request.code == '1234'
 
 # Instalando
 
