@@ -38,6 +38,7 @@ request = gateway.process_payment(total=12000,
     card_security_code='123',
     request_code='1234')
 assert request.code == '1234'
+```
 
 # Instalando
 
