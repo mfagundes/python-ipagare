@@ -165,13 +165,20 @@ class IPagareGateway(object):
                 int(payment_option['codigo']))
 
             forms = []
-            for payment_form in payment_option['formas']:
-                forms.append(PAYMENT_FORMS.get(str(payment_form['codigo'])))
+
+            payment_forms = payment_option['formas']
+            if not isinstance(payment_forms, list):
+                payment_forms = [payment_forms['forma']]
+
+            for payment_form in payment_forms:
+                codigo = str(payment_form['codigo'])
+                forms.append((codigo, PAYMENT_FORMS.get(codigo)))
 
             prepared_payment_options.append({
                 'nome': nome,
                 'convenio': convenio,
                 'instituicao': instituicao,
+                'codigo': payment_option['codigo'],
                 'formas': forms
             })
 
