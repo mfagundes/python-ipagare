@@ -2,6 +2,7 @@
 import hashlib
 import requests
 import simplexml
+import logging
 from ipagare.error import IPagareError
 from ipagare.model import Request
 
@@ -161,8 +162,11 @@ class IPagareGateway(object):
 
         prepared_payment_options = []
         for payment_option in response['pedido']['opcoes-pagamento']:
-            nome, convenio, instituicao = PAYMENT_OPTIONS.get(
-                int(payment_option['codigo']))
+            try:
+                nome, convenio, instituicao = PAYMENT_OPTIONS[int(payment_option['codigo'])]
+            except KeyError:
+                logging.warn('meio de pagamento desconhecido %s' % payment_option)
+                continue
 
             forms = []
 
