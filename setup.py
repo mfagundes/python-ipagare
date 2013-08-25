@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-ipagare',
-    version='0.0.7',
+    version='0.0.8',
     description='python api to ipagare webservices',
     long_description=open("README.md").read(),
     author=u'Marcel Nicolay',

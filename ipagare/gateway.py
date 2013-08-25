@@ -78,7 +78,7 @@ class IPagareAction:
 class IPagareGateway(object):
 
     def __init__(self, establishment_id, security_code, sandbox=False,
-        endpoint='https://ww2.ipagare.com.br/service/process.do'):
+        endpoint='https://ww2.ipagare.com.br/service/process.do', timeout=90):
         assert isinstance(establishment_id, str)
         assert isinstance(security_code, str)
         assert isinstance(sandbox, bool)
@@ -88,6 +88,7 @@ class IPagareGateway(object):
         self.endpoint = endpoint
         self.sandbox = sandbox
         self.version = '2'
+        self.timeout = timeout
 
     def _generate_auth_key(self, action, total, version):
         assert isinstance(action, str)
@@ -125,7 +126,8 @@ class IPagareGateway(object):
 
         params.update(default_params)
 
-        response = requests.post(self.endpoint, params=params)
+        response = requests.post(self.endpoint, params=params,
+                                 timeout=self.timeout)
 
         response_data = simplexml.loads(response.text\
             .encode(response.encoding))
@@ -228,6 +230,6 @@ class IPagareGateway(object):
         params.update(kw)
 
         response = self._make_request(action=action, total=total,
-            params=params, version='2')
+                                      params=params, version='2')
 
         return Request.create_from_dict(**response.get('pedido'))
